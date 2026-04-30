@@ -10,13 +10,15 @@ You are tagging the Obsidian note at `$ARGUMENTS`. Follow these steps **exactly 
 Execute the tagger binary to upsert the note's embedding and retrieve the 10 most similar notes:
 
 ```bash
-./tools/tagger/target/release/tagger "$ARGUMENTS"
+/Users/mitchkehoe/Desktop/ClaudeTest/ObsidianTagging/tools/tagger/target/release/tagger \
+  --index-dir /Users/mitchkehoe/Desktop/ClaudeTest/ObsidianTagging/.tagger/index \
+  "$ARGUMENTS"
 ```
 
 The output is a newline-separated list of note titles (or file paths if titles are unavailable). Capture this list as SIMILAR_NOTES.
 
 If the binary does not exist, output this error and stop:
-> Error: Rust tagger binary not found. Run `cargo build --release` in tools/tagger/ first.
+> Error: Rust tagger binary not found. Run `cargo build --release` in `/Users/mitchkehoe/Desktop/ClaudeTest/ObsidianTagging/tools/tagger/` first.
 
 ## Step 2 — Read the note
 
@@ -26,7 +28,7 @@ Read the full content of `$ARGUMENTS`. Identify:
 
 ## Step 3 — Read the tag registry
 
-Read `tags.json` from the vault root. Extract the `tags` array. Count total tags as TAG_COUNT.
+Read `/Users/mitchkehoe/Desktop/ClaudeTest/ObsidianTagging/tags.json`. Extract the `tags` array. Count total tags as TAG_COUNT.
 
 ## Step 4 — Select tags to apply
 
@@ -71,7 +73,7 @@ Use the pipe syntax `[[Target|display text]]` when the casing differs.
 - Body text with `[[links]]` injected (per Step 5)
 - All other content byte-for-byte identical
 
-**6b.** If new tags were created, write the updated `tags.json` with the new tags appended to the array.
+**6b.** If new tags were created, write the updated `/Users/mitchkehoe/Desktop/ClaudeTest/ObsidianTagging/tags.json` with the new tags appended to the array.
 
 ## Step 7 — Report
 
