@@ -71,8 +71,8 @@ Claude will:
 
 | Condition | Behaviour |
 |---|---|
-| `tags.json` has < 25 tags (cold start) | May create up to **3 new tags** per run; appends them to `tags.json` |
-| `tags.json` has ≥ 25 tags (mature vault) | Prioritises existing tags; at most **1 new tag** if concept is genuinely absent |
+| `tags.json` has < 50 tags (cold start) | May create up to **3 new tags** per run; appends them to `tags.json` |
+| `tags.json` has ≥ 50 tags (mature vault) | Prioritises existing tags; at most **2 new tags** if concepts are genuinely absent |
 | Always | Preserves all existing frontmatter tags; appends 1–4 non-duplicates |
 
 ---

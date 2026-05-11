@@ -34,16 +34,16 @@ Read `/Users/mitchkehoe/Desktop/ClaudeTest/ObsidianTagging/tags.json`. Extract t
 
 Rules (apply ALL of them):
 
-**4a. Cold Start (TAG_COUNT < 25):**
+**4a. Cold Start (TAG_COUNT < 50):**
 - You MAY generate up to 3 new tags that don't exist in the `tags` array.
 - New tags must represent distinct, reusable concepts (not one-off proper nouns).
 - Each new tag must be lowercase, hyphenated, no spaces (e.g. `knowledge-management`).
 - Append every new tag you create to the `tags` array in `tags.json`.
 
-**4b. Mature Vault (TAG_COUNT >= 25):**
+**4b. Mature Vault (TAG_COUNT >= 50):**
 - Prioritize tags that already exist in the `tags` array.
-- You MAY create at most 1 new tag only if the note introduces a concept genuinely absent from the existing taxonomy.
-- Append it to `tags.json` if created.
+- You MAY create at most 2 new tags only if the note introduces concepts genuinely absent from the existing taxonomy.
+- Append them to `tags.json` if created.
 
 **4c. Merge Rule (always):**
 - PRESERVE all tags already in the note's frontmatter `tags:` array.
