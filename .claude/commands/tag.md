@@ -22,9 +22,17 @@ If the binary does not exist, output this error and stop:
 
 ## Step 2 — Read the note
 
-Read the full content of `$ARGUMENTS`. Identify:
-- The YAML frontmatter block (between the first and second `---` lines). Extract the existing `tags:` array.
-- The body text (everything after the closing `---`).
+Read the full content of `$ARGUMENTS`. Determine the note's tag format:
+
+**Case A — YAML frontmatter** (the very first line of the file is exactly `---`):
+- Extract the existing `tags:` array from the frontmatter block (between the first and second `---`).
+- Set TAG_MODE = YAML.
+- Body = everything after the closing `---`.
+
+**Case B — Inline hashtags** (first line is NOT `---`):
+- Find the line that starts with `Tags:` anywhere in the file. Extract any existing `#word` tokens from that line.
+- Set TAG_MODE = INLINE.
+- Body = the entire file content.
 
 ## Step 3 — Read the tag registry
 
@@ -46,9 +54,9 @@ Rules (apply ALL of them):
 - Append them to `tags.json` if created.
 
 **4c. Merge Rule (always):**
-- PRESERVE all tags already in the note's frontmatter `tags:` array.
+- PRESERVE all tags already on the note (YAML array entries or inline `#hashtag` tokens).
 - APPEND 1–4 non-duplicate tags from your selected set.
-- The final `tags:` array = original tags UNION new tags (no duplicates, no removals).
+- Final tag set = original UNION new (no duplicates, no removals).
 
 ## Step 5 — Select links to inject
 
@@ -68,10 +76,16 @@ Use the pipe syntax `[[Target|display text]]` when the casing differs.
 
 ## Step 6 — Write changes
 
-**6a.** Rewrite `$ARGUMENTS` with:
-- Updated YAML frontmatter `tags:` array (merged per Step 4c)
-- Body text with `[[links]]` injected (per Step 5)
-- All other content byte-for-byte identical
+**6a.** Rewrite `$ARGUMENTS` with the tag changes and `[[links]]` injected (per Step 5):
+
+**If TAG_MODE = YAML:**
+- Update the `tags:` array in the YAML frontmatter (merged per Step 4c).
+- Do NOT alter any other frontmatter keys or the body structure.
+
+**If TAG_MODE = INLINE:**
+- Find the `Tags:` line. Append new tags as space-separated `#tag` tokens after the existing ones.
+- Do NOT create YAML frontmatter. Do NOT add `---` delimiters.
+- All other lines byte-for-byte identical.
 
 **6b.** If new tags were created, write the updated `/Users/mitchkehoe/Desktop/ClaudeTest/ObsidianTagging/tags.json` with the new tags appended to the array.
 
